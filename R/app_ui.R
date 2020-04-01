@@ -20,9 +20,9 @@ app_ui <- function() {
 #' @import shiny
 golem_add_external_resources <- function(){
   
-  addResourcePath(
-    'www', system.file('app/www', package = 'covid19mx')
-  )
+  # addResourcePath(
+  #   'www', system.file('app/www', package = 'covid19mx')
+  # )
  
   bootstraplib::bs_theme_new(version = "4+3", bootswatch = "lux")
   bootstraplib::bs_theme_add_variables(`font-size-base` = "1rem")
