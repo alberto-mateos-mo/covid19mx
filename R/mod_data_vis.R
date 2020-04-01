@@ -50,56 +50,56 @@ mod_data_vis_server <- function(input, output, session){
   names(casos_fecha) <- c("fecha", "freq")
   
   casos_fecha <- casos_fecha %>% 
-    mutate(fecha = lubridate::dmy(fecha))
+    dplyr::mutate(fecha = lubridate::dmy(fecha))
   
-  casos_fecha <- arrange(casos_fecha, fecha)
+  casos_fecha <- dplyr::arrange(casos_fecha, fecha)
   
   casos_fecha <- casos_fecha %>% 
-    mutate(cum_freq = cumsum(freq))
+    dplyr::mutate(cum_freq = cumsum(freq))
   
   output$casos_acum <- plotly::renderPlotly({
     
-    plotly::ggplotly(ggplot(casos_fecha)+
-                       geom_line(aes(fecha, cum_freq))+
-                       geom_point(aes(fecha, cum_freq))+
-                       scale_x_date(breaks = "week")+
-                       labs(x = "", y = "")+
-                       ggtitle("Casos acumulados por fecha de inicio de síntomas")+
-                       theme_unam()+
-                       theme(axis.text.x = element_text(angle = 90)))
+    plotly::ggplotly(ggplot2::ggplot(casos_fecha)+
+                       ggplot2::geom_line(ggplot2::aes(fecha, cum_freq))+
+                       ggplot2::geom_point(ggplot2::aes(fecha, cum_freq))+
+                       ggplot2::scale_x_date(breaks = "week")+
+                       ggplot2::labs(x = "", y = "")+
+                       ggplot2::ggtitle("Casos acumulados por fecha de inicio de síntomas")+
+                       ggplot2::theme_minimal()+
+                       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)))
   })
   
   output$casos_freq <- plotly::renderPlotly({
-    plotly::ggplotly(ggplot(casos_fecha)+
-                       geom_line(aes(fecha, freq))+
-                       geom_point(aes(fecha, freq))+
-                       scale_x_date(breaks = "week")+
-                       labs(x = "", y = "")+
-                       ggtitle("Casos por fecha de inicio de síntomas")+
-                       theme_unam()+
-                       theme(axis.text.x = element_text(angle = 90)))
+    plotly::ggplotly(ggplot2::ggplot(casos_fecha)+
+                       ggplot2::geom_line(ggplot2::aes(fecha, freq))+
+                       ggplot2::geom_point(ggplot2::aes(fecha, freq))+
+                       ggplot2::scale_x_date(breaks = "week")+
+                       ggplot2::labs(x = "", y = "")+
+                       ggplot2::ggtitle("Casos por fecha de inicio de síntomas")+
+                       ggplot2::theme_minimal()+
+                       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)))
   })
   
   output$casos_gen <- plotly::renderPlotly({
-    plotly::ggplotly(ggplot(casos_positivos)+
-                       geom_bar(aes("genero", fill = genero), position = "fill")+
-                       coord_flip()+
-                       labs(x = "", y = "")+
-                       ggtitle("Casos por género")+
-                       theme_unam()+
-                       scale_fill_discrete("Género")+
-                       theme(axis.text = element_blank(), 
-                             panel.grid = element_blank(), 
-                             axis.ticks = element_blank(), 
-                             axis.line = element_blank()))
+    plotly::ggplotly(ggplot2::ggplot(casos_positivos)+
+                       ggplot2::geom_bar(ggplot2::aes("genero", fill = genero), position = "fill")+
+                       ggplot2::coord_flip()+
+                       ggplot2::labs(x = "", y = "")+
+                       ggplot2::ggtitle("Casos por género")+
+                       ggplot2::theme_minimal()+
+                       ggplot2::scale_fill_discrete("Género")+
+                       ggplot2::theme(axis.text = ggplot2::element_blank(), 
+                             panel.grid = ggplot2::element_blank(), 
+                             axis.ticks = ggplot2::element_blank(), 
+                             axis.line = ggplot2::element_blank()))
   })
   
   output$casos_edad <- plotly::renderPlotly({
-    plotly::ggplotly(ggplot(casos_positivos)+
-                       geom_bar(aes(edad))+
-                       labs(x = "Edad", y = "Casos")+
-                       ggtitle("Casos por edad")+
-                       theme_unam())
+    plotly::ggplotly(ggplot2::ggplot(casos_positivos)+
+                       ggplot2::geom_bar(ggplot2::aes(edad))+
+                       ggplot2::labs(x = "Edad", y = "Casos")+
+                       ggplot2::ggtitle("Casos por edad")+
+                       ggplot2::theme_minimal())
   })
   
 }
