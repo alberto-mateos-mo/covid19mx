@@ -41,15 +41,15 @@ tmp <- lapply(strsplit2(tmp, "^[MF]", type = "after"),
                 trimws(x[2])
               }) %>% unlist()
 
-edades <- lapply(strsplit2(tmp, "^\\d{2}", type = "after"),
+edades <- lapply(strsplit2(tmp, " ", type = "after"),
                  function(x){
                    trimws(x[1])
                  }) %>% unlist()
 
 fechas <- str_extract(doc, pattern = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}")
 
-positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = edades, fecha = fechas)
+positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = as.numeric(edades), fecha = fechas)
 
-casos_positivos <- positivos_df
+casos_positivos <- positivos_df %>% na.omit()
 
-usethis::use_data(casos_positivos)
+usethis::use_data(casos_positivos, overwrite = TRUE)
