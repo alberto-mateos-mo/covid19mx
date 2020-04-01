@@ -67,14 +67,15 @@ tmp <- lapply(strsplit2(tmp, "^[MF]", type = "after"),
                 trimws(x[2])
               }) %>% unlist()
 
-edades <- lapply(strsplit2(tmp, "^\\d{2}", type = "after"),
+edades <- lapply(strsplit2(tmp, " ", type = "after"),
                  function(x){
                    trimws(x[1])
                  }) %>% unlist()
 
 fechas <- str_extract(doc, pattern = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}")
 
-positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = edades, fecha = fechas)
+positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = edades, fecha = fechas) %>% 
+  na.omit()
 
 casos_fecha <- table(fechas) %>% 
   as.data.frame()
@@ -103,3 +104,23 @@ plotly::ggplotly(ggplot(casos_fecha)+
   scale_x_date(breaks = "day")+
   theme_unam()+
   theme(axis.text.x = element_text(angle = 90)))
+
+plotly::ggplotly(ggplot(casos_positivos)+
+                   geom_bar(aes("genero", fill = genero), position = "fill")+
+                   coord_flip()+
+                   labs(x = "", y = "")+
+                   ggtitle("Casos por género")+
+                   theme_unam()+
+                   scale_fill_discrete("Género")+
+                   theme(axis.text = element_blank(), 
+                         panel.grid = element_blank(), 
+                         axis.ticks = element_blank(), 
+                         axis.line = element_blank()))
+
+plotly::ggplotly(ggplot(casos_positivos)+
+  geom_bar(aes(as.numeric(edad)))+
+  labs(x = "Edad", y = "Casos")+
+  theme_unam())
+
+ggplot(casos_positivos)+
+  geom_density(aes(as.numeric(edad)))
