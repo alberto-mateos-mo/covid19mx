@@ -8,11 +8,11 @@
 ## 2.1 Add modules
 ## 
 golem::add_module( name = "data_vis" )
-golem::add_module( name = "my_other_module" ) # Name of the module
+golem::add_module( name = "data_download" )
 
 ## 2.2 Add dependencies
 
-usethis::use_package( "bootstraplib" ) # To call each time you need a new package
+usethis::use_package( "DT" ) # To call each time you need a new package
 
 ## 2.3 Add tests
 
