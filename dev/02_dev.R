@@ -12,7 +12,7 @@ golem::add_module( name = "data_download" )
 
 ## 2.2 Add dependencies
 
-usethis::use_package( "DT" ) # To call each time you need a new package
+usethis::use_package( "lubridate" ) # To call each time you need a new package
 
 ## 2.3 Add tests
 
