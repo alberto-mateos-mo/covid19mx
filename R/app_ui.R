@@ -6,9 +6,13 @@ app_ui <- function() {
     # List the first level UI elements here 
     navbarPage(
       title = ("covid19 MX"),
-      tabPanel("Data Explorer",
+      tabPanel("Reporte",
                mod_data_vis_ui("data_vis_ui_1")
-               )
+               ),
+      tabPanel("Mapa",
+               h1("En construcción")),
+      tabPanel("Datos",
+               mod_data_download_ui("data_download_ui_1"))
     )
   )
 }
