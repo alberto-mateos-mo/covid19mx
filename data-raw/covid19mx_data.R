@@ -48,8 +48,10 @@ edades <- lapply(strsplit2(tmp, " ", type = "after"),
 
 fechas <- str_extract(doc, pattern = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}")
 
-positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = as.numeric(edades), fecha = fechas)
+positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = as.numeric(edades), fecha = fechas) %>% 
+  na.omit() %>% 
+  mutate(caso = 1:length(estado))
 
-casos_positivos <- positivos_df %>% na.omit()
+casos_positivos <- positivos_df
 
 usethis::use_data(casos_positivos, overwrite = TRUE)
