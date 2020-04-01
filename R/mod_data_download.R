@@ -31,8 +31,9 @@ mod_data_download_ui <- function(id){
 mod_data_download_server <- function(input, output, session){
   ns <- session$ns
   
-  output$datos <- DT::renderDT({
+  output$datos <- DT::renderDT(server = FALSE, {
     DT::datatable(casos_positivos,
+                  rownames = FALSE,
                   extensions = 'Buttons',
                   options = list(
                     dom = 'Bfrtip',
