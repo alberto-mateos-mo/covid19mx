@@ -16,11 +16,14 @@ Imports:
     htmltools,
     bootstraplib,
     plotly,
-    unam.theme,
-    pkgload
+    pkgload,
+    ggplot2,
+    dplyr,
+    magrittr,
+    janitor,
+    lubridate
 RoxygenNote: 7.0.2
 URL: https://github.com/alberto-mateos-mo/covid19mx
 BugReports: https://github.com/alberto-mateos-mo/covid19mx/issues
 Suggests: 
     testthat
-Remotes: git::https://github.com/alberto-mateos-mo/unam.theme.git
