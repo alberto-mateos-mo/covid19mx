@@ -1,0 +1,13 @@
+name: covid19mx
+title: covid19mx
+username:
+account: davidmateos
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2033749
+bundleId: 2952737
+url: https://davidmateos.shinyapps.io/covid19mx/
+when: 1585727184.51016
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: casos_positivos.pdf|casos_sospechosos.pdf|script.R|dev/01_start.R|dev/02_dev.R|dev/03_deploy.R|dev/run_dev.R
