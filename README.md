@@ -9,7 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of covid19mx is to …
+The goal of covid19mx is to provide a dashboard to visualise coivd-19
+data for Mexico.
 
 ## Installation
 
@@ -21,9 +22,9 @@ You can install the development version from
 devtools::install_github("alberto-mateos-mo/covid19mx")
 ```
 
-## Example
+## Running the dashboard
 
-This is a basic example which shows you how to solve a common problem:
+To run the dashboard you will use:
 
 ``` r
 # library(covid19mx)
