@@ -14,7 +14,9 @@ Imports:
     DT,
     glue,
     htmltools,
-    bootstraplib
+    bootstraplib,
+    plotly,
+    unam.theme
 RoxygenNote: 7.0.2
 URL: https://github.com/alberto-mateos-mo/covid19mx
 BugReports: https://github.com/alberto-mateos-mo/covid19mx/issues
