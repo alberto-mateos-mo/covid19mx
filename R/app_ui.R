@@ -10,9 +10,11 @@ app_ui <- function() {
                mod_data_vis_ui("data_vis_ui_1")
                ),
       tabPanel("Mapa",
-               h1("En construcción")),
+               mod_data_map_ui("data_map_ui_1")
+               ),
       tabPanel("Datos",
-               mod_data_download_ui("data_download_ui_1"))
+               mod_data_download_ui("data_download_ui_1")
+               )
     )
   )
 }
