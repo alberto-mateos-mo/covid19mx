@@ -2,6 +2,8 @@ require(pdftools)
 require(tidyverse)
 require(ggplot2)
 require(unam.theme)
+require(stringr)
+require(leaflet)
 
 strsplit2 <- function(x,
                      split,
@@ -124,3 +126,47 @@ plotly::ggplotly(ggplot(casos_positivos)+
 
 ggplot(casos_positivos)+
   geom_density(aes(as.numeric(edad)))
+
+casos_positivos <- fastDummies::dummy_cols(casos_positivos, select_columns = c("genero"))
+
+mapa_data <- casos_positivos %>% 
+  group_by(estado) %>% 
+  summarise(casos = n(), edad_prom = mean(edad, na.rm = TRUE), edad_med = median(edad, na.rm = TRUE), 
+            n_M = sum(genero_M, na.rm = TRUE), n_F = sum(genero_F, na.rm = TRUE))
+
+mapa_data <- right_join(mapa_data, estados_coords)
+
+mapa_data$casos_clase <- cut(mapa_data$casos, 
+                             c(1,50,100,250,500,1000), include.lowest = T,
+                             labels = c('1-50', '51-100', '101-250', '251-500', '501-1000'))
+
+casosCol <- colorFactor(palette = 'RdYlGn', mapa_data$casos_clase, reverse = TRUE)
+
+leaflet(mapa_data) %>% 
+  addTiles() %>% 
+  addCircleMarkers(lat = ~lat, lng = ~lon, color = ~casosCol(casos_clase), fillOpacity = 0.5, 
+                   popup = ~paste(sep = " ",
+                                  "<b>Estado:</b>:", estado, "<br/>",
+                                  "<b>Casos:</b>", casos, "<br/>",
+                                  "<b>Edad promedio:</b>", round(edad_prom,1), "<br/>",
+                                  "<b>Edad mediana:</b>", round(edad_med,1), "<br/>",
+                                  "<b>Casos masculinos:</b>", n_M, "<br/>",
+                                  "<b>Casos femeninos:</b>", n_F
+                   ), 
+                   label = ~htmltools::htmlEscape(paste(casos, "casos"))) %>% 
+  addLegend('topright', pal = casosCol, values = mapa_data$casos_clase,
+            title = 'Número de casos',
+            opacity = 1)
+
+paste(sep = " ",
+      "<b>Estado:</b>:", estado, "<br/>",
+      "<b>Casos:</b>", casos, "<br/>",
+      "<b>Edad promedio:</b>", round(edad_prom,1), "<br/>",
+      "<b>Edad mediana:</b>", round(edad_med,1), "<br/>",
+      "<b>Casos masculinos:</b>", n_M, "<br/>",
+      "<b>Casos femeninos:</b>", n_F
+)
+
+
+
+  
