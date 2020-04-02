@@ -54,4 +54,25 @@ positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = gene
 
 casos_positivos <- positivos_df
 
+casos_positivos <- fastDummies::dummy_cols(casos_positivos, select_columns = c("genero"))
+
+mapa_data <- casos_positivos %>% 
+  group_by(estado) %>% 
+  summarise(casos = n(), edad_prom = mean(edad, na.rm = TRUE), edad_med = median(edad, na.rm = TRUE), 
+            n_M = sum(genero_M, na.rm = TRUE), n_F = sum(genero_F, na.rm = TRUE))
+
+mapa_data <- right_join(mapa_data, estados_coords)
+
+mapa_data$casos_clase <- cut(mapa_data$casos, 
+                             c(1,50,100,250,500,1000), include.lowest = T,
+                             labels = c('1-50', '51-100', '101-250', '251-500', '501-1000'))
+
+
 usethis::use_data(casos_positivos, overwrite = TRUE)
+usethis::use_data(mapa_data, overwrite = TRUE)
+
+
+# estados_coords <- clipr::read_clip_tbl(header = TRUE)
+# estados_coords$lat <- estados_coords$lat %>% str_replace(pattern = ",", replacement = ".") %>% as.numeric()
+# estados_coords$lon <- estados_coords$lon %>% str_replace(pattern = ",", replacement = ".") %>% as.numeric()
+# usethis::use_data(estados_coords, overwrite = TRUE)
