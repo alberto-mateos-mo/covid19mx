@@ -31,7 +31,7 @@ mod_data_map_server <- function(input, output, session){
   
   output$mapa <- leaflet::renderLeaflet({
     
-    casosCol <- colorFactor(palette = 'RdYlGn', mapa_data$casos_clase, reverse = TRUE)
+    casosCol <- leaflet::colorFactor(palette = 'RdYlGn', mapa_data$casos_clase, reverse = TRUE)
     
     leaflet::leaflet(mapa_data) %>% 
       leaflet::addProviderTiles(leaflet::providers$CartoDB.DarkMatter) %>% 
