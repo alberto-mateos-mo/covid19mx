@@ -6,16 +6,16 @@ require(tidyverse)
 
 #url_sospechosos <- "https://www.gob.mx/cms/uploads/attachment/file/544539/Tabla_casos_sospechosos_COVID-19_2020.03.31.pdf"
 
-download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
+# download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
 
-url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/544743/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.01.pdf"
+url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/544957/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.02.pdf"
 
 download.file(url_positivos, "casos_positivos.pdf", mode = "wb")
 
 doc <- pdf_text("casos_positivos.pdf") %>% 
   readr::read_lines(skip_empty_rows = TRUE, skip = 6) %>% 
   trimws() %>% 
-  strsplit2(., "\\s[FM]\\s", type = "before")
+  covid19mx::strsplit2(., "\\s[FM]\\s", type = "before")
 
 estados <- lapply(doc,
                   function(x){
@@ -31,17 +31,17 @@ tmp <- unlist(tmp)
 
 tmp <- trimws(gsub("\\s+", " ", tmp))
 
-generos <- lapply(strsplit2(tmp, "^[MF]", type = "after"),
+generos <- lapply(covid19mx::strsplit2(tmp, "^[MF]", type = "after"),
                   function(x){
                     trimws(x[1])
                   }) %>% unlist()
 
-tmp <- lapply(strsplit2(tmp, "^[MF]", type = "after"),
+tmp <- lapply(covid19mx::strsplit2(tmp, "^[MF]", type = "after"),
               function(x){
                 trimws(x[2])
               }) %>% unlist()
 
-edades <- lapply(strsplit2(tmp, " ", type = "after"),
+edades <- lapply(covid19mx::strsplit2(tmp, " ", type = "after"),
                  function(x){
                    trimws(x[1])
                  }) %>% unlist()
@@ -61,7 +61,7 @@ mapa_data <- casos_positivos %>%
   summarise(casos = n(), edad_prom = mean(edad, na.rm = TRUE), edad_med = median(edad, na.rm = TRUE), 
             n_M = sum(genero_M, na.rm = TRUE), n_F = sum(genero_F, na.rm = TRUE))
 
-mapa_data <- right_join(mapa_data, estados_coords)
+mapa_data <- right_join(mapa_data, covid19mx::estados_coords)
 
 mapa_data$casos_clase <- cut(mapa_data$casos, 
                              c(1,50,100,250,500,1000), include.lowest = T,
