@@ -15,7 +15,7 @@ data for Mexico.
 You can check the dashboard
 [here](https://davidmateos.shinyapps.io/covid19mx/).
 
-Updated: 02/04/2020
+Updated: 03/04/2020
 
 Please note that the ‘covid19mx’ project is released with a [Contributor
 Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
