@@ -14,7 +14,18 @@ app_ui <- function() {
                ),
       tabPanel("Datos",
                mod_data_download_ui("data_download_ui_1")
-               )
+               ),
+      
+      tags$footer("Última actualización: 03/04/2020", align = "left",
+                 style = "
+                 position:absolute;
+                 bottom:0;
+                 width:80%;
+                 height:50px; /* Height of the footer */
+                 color: black;
+                 padding: 10px;
+                 background-color: white;
+                 z-index: 1000;")
     )
   )
 }
