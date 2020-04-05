@@ -16,6 +16,7 @@
 mod_data_vis_ui <- function(id){
   ns <- NS(id)
   tagList(
+    # textOutput(ns("n_casos")),
     tabsetPanel(
       tabPanel("Comportamiento",
                fluidRow(
@@ -101,6 +102,10 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::ggtitle("Casos por edad")+
                        ggplot2::theme_minimal())
   })
+  
+  # output$n_casos <- renderText({
+  #   h3(paste(nrow(casos_positivos), "\n", "Casos confirmados."))
+  # })
   
 }
     

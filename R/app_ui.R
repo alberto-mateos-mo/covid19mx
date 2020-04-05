@@ -16,7 +16,7 @@ app_ui <- function() {
                mod_data_download_ui("data_download_ui_1")
                ),
       
-      tags$footer("Última actualización: 03/04/2020", align = "left",
+      tags$footer("Última actualización: 04/04/2020", align = "left",
                  style = "
                  position:absolute;
                  bottom:0;
@@ -38,10 +38,10 @@ golem_add_external_resources <- function(){
   # )
  
   bootstraplib::bs_theme_new(version = "4+3", bootswatch = "lux")
-  bootstraplib::bs_theme_add_variables(`font-size-base` = "1rem")
-  bootstraplib::bs_theme_add_variables(`body-color` = "#002B7A", 
-                                       `input-border-color` = "#002B7A", primary = "#D59F0F", 
-                                       default = "#D59F0F", secondary = "#D59F0F", `gray-900` = "#002B7A")
+  bootstraplib::bs_theme_add_variables(`font-size-base` = "1.1rem")
+  bootstraplib::bs_theme_add_variables(`body-color` = "#343a40", 
+                                       `input-border-color` = "#343a40", primary = "#343a40", 
+                                       default = "#343a40", secondary = "#403440", `gray-900` = "#1a1a1a")
   
   tags$head(
     golem::activate_js(),
