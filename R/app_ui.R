@@ -38,7 +38,7 @@ golem_add_external_resources <- function(){
   # )
  
   bootstraplib::bs_theme_new(version = "4+3", bootswatch = "lux")
-  bootstraplib::bs_theme_add_variables(`font-size-base` = "1.1rem")
+  bootstraplib::bs_theme_add_variables(`font-size-base` = "1rem")
   bootstraplib::bs_theme_add_variables(`body-color` = "#343a40", 
                                        `input-border-color` = "#343a40", primary = "#343a40", 
                                        default = "#343a40", secondary = "#403440", `gray-900` = "#1a1a1a")

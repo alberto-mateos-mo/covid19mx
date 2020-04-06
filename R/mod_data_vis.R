@@ -16,7 +16,8 @@
 mod_data_vis_ui <- function(id){
   ns <- NS(id)
   tagList(
-    # textOutput(ns("n_casos")),
+    valueBox(value = ns("n_casos"), subtitle = "Casos confirmados", color = "white", icon = "search"),
+    hr(),
     tabsetPanel(
       tabPanel("Comportamiento",
                fluidRow(
@@ -103,9 +104,9 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::theme_minimal())
   })
   
-  # output$n_casos <- renderText({
-  #   h3(paste(nrow(casos_positivos), "\n", "Casos confirmados."))
-  # })
+  output$n_casos <- renderText({
+    nrow(casos_positivos)
+  })
   
 }
     
