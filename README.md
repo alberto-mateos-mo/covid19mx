@@ -1,7 +1,7 @@
+covid19mx
+================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# covid19mx
 
 <!-- badges: start -->
 
@@ -18,5 +18,6 @@ You can check the dashboard
 Updated: 06/04/2020
 
 Please note that the ‘covid19mx’ project is released with a [Contributor
-Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
-you agree to abide by its terms.
+Code of Conduct](CODE_OF_CONDUCT.md).
+
+By contributing to this project, you agree to abide by its terms.
