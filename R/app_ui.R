@@ -16,7 +16,7 @@ app_ui <- function() {
                mod_data_download_ui("data_download_ui_1")
                ),
       
-      tags$footer("Última actualización: 04/04/2020", align = "left",
+      tags$footer("Última actualización: 06/04/2020", align = "left",
                  style = "
                  position:absolute;
                  bottom:0;

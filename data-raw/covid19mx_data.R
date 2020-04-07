@@ -8,49 +8,50 @@ require(tidyverse)
 
 # download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
 
-url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/545297/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.05.pdf"
+url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/545491/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.06.pdf"
 
 download.file(url_positivos, "casos_positivos.pdf", mode = "wb")
 
 doc <- pdf_text("casos_positivos.pdf") %>% 
-  readr::read_lines(skip_empty_rows = TRUE, skip = 6) %>% 
+  readr::read_lines(skip_empty_rows = TRUE, skip = 4) %>% 
   trimws() %>% 
-  covid19mx::strsplit2(., "\\s[FM]\\s", type = "before")
+  strsplit(., "^\\d") %>% 
+  unlist() %>% 
+  .[nchar(.) != 0] %>% 
+  trimws() %>% 
+  stringr::str_squish()
 
-estados <- lapply(doc,
+doc <- head(doc, -3)
+
+estados <- lapply(strsplit(doc, "MASCULINO|FEMENINO"),
                   function(x){
-                    trimws(str_remove(x[1], "\\d{1,}"))
+                    x[1]
                   }) %>% unlist()
 
-tmp <- lapply(doc,
+tmp <- lapply(covid19mx::strsplit2(doc, "MASCULINO|FEMENINO", type = "before"),
               function(x){
                 x[2]
               })
 
 tmp <- unlist(tmp)
 
-tmp <- trimws(gsub("\\s+", " ", tmp))
+# tmp <- trimws(gsub("\\s+", " ", tmp))
 
-generos <- lapply(covid19mx::strsplit2(tmp, "^[MF]", type = "after"),
+generos <- lapply(strsplit(tmp, " "),
                   function(x){
-                    trimws(x[1])
+                    x[1]
                   }) %>% unlist()
 
-tmp <- lapply(covid19mx::strsplit2(tmp, "^[MF]", type = "after"),
-              function(x){
-                trimws(x[2])
-              }) %>% unlist()
-
-edades <- lapply(covid19mx::strsplit2(tmp, " ", type = "after"),
+edades <- lapply(strsplit(tmp, " "),
                  function(x){
-                   trimws(x[1])
+                   x[2]
                  }) %>% unlist()
 
-fechas <- str_extract(doc, pattern = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}")
+fechas <- str_extract(tmp, pattern = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}")
 
 positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = as.numeric(edades), fecha = fechas) %>% 
   na.omit() %>% 
-  mutate(caso = 1:length(estado))
+  dplyr::mutate(caso = 1:length(estado))
 
 casos_positivos <- positivos_df
 
