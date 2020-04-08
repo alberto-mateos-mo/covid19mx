@@ -1,9 +1,7 @@
-covid19mx
-================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<!-- badges: start -->
+# covid19mx
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -15,7 +13,7 @@ data for Mexico.
 You can check the dashboard
 [here](https://davidmateos.shinyapps.io/covid19mx/).
 
-Updated: 06/04/2020
+Updated: 07/04/2020
 
 Please note that the ‘covid19mx’ project is released with a [Contributor
 Code of Conduct](CODE_OF_CONDUCT.md).

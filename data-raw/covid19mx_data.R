@@ -8,12 +8,12 @@ require(tidyverse)
 
 # download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
 
-url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/545491/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.06.pdf"
+url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/545732/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.07.pdf"
 
 download.file(url_positivos, "casos_positivos.pdf", mode = "wb")
 
 doc <- pdf_text("casos_positivos.pdf") %>% 
-  readr::read_lines(skip_empty_rows = TRUE, skip = 4) %>% 
+  readr::read_lines(skip_empty_rows = TRUE, skip = 8) %>% 
   trimws() %>% 
   strsplit(., "^\\d") %>% 
   unlist() %>% 
@@ -21,7 +21,9 @@ doc <- pdf_text("casos_positivos.pdf") %>%
   trimws() %>% 
   stringr::str_squish()
 
-doc <- head(doc, -3)
+doc <- doc[-which(doc == "República")]
+
+doc <- head(doc, -2)
 
 estados <- lapply(strsplit(doc, "MASCULINO|FEMENINO"),
                   function(x){
@@ -40,14 +42,31 @@ tmp <- unlist(tmp)
 generos <- lapply(strsplit(tmp, " "),
                   function(x){
                     x[1]
-                  }) %>% unlist()
+                  }) %>% unlist() %>% na.omit()
 
 edades <- lapply(strsplit(tmp, " "),
                  function(x){
                    x[2]
+                 }) %>% unlist() %>% na.omit()
+
+# fechas <- str_extract(tmp, pattern = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}")
+
+fechas <- lapply(strsplit(tmp, " "),
+                 function(x){
+                   x[3]
                  }) %>% unlist()
 
-fechas <- str_extract(tmp, pattern = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}")
+for(i in 1:length(fechas)){
+  
+  f <- fechas[i]
+  
+  if(nchar(f) == 5){
+    fechas[i] <- format(janitor::excel_numeric_to_date(as.numeric(as.character(f)), date_system = "modern"), "%d/%m/%Y")
+  }
+  if(nchar(f) == 10){
+    fechas[i] <- fechas[i]
+  }
+}
 
 positivos_df <- data.frame(caso = 1:length(doc), estado = estados, genero = generos, edad = as.numeric(edades), fecha = fechas) %>% 
   na.omit() %>% 
@@ -58,11 +77,13 @@ casos_positivos <- positivos_df
 casos_positivos <- fastDummies::dummy_cols(casos_positivos, select_columns = c("genero"))
 
 mapa_data <- casos_positivos %>% 
-  group_by(estado) %>% 
-  summarise(casos = n(), edad_prom = mean(edad, na.rm = TRUE), edad_med = median(edad, na.rm = TRUE), 
-            n_M = sum(genero_M, na.rm = TRUE), n_F = sum(genero_F, na.rm = TRUE))
+  dplyr::group_by(estado) %>% 
+  dplyr::summarise(casos = dplyr::n(), edad_prom = mean(edad, na.rm = TRUE), edad_med = median(edad, na.rm = TRUE), 
+            n_M = sum(genero_MASCULINO, na.rm = TRUE), n_F = sum(genero_FEMENINO, na.rm = TRUE))
 
-mapa_data <- right_join(mapa_data, covid19mx::estados_coords)
+mapa_data$estado <- as.character(mapa_data$estado) %>% trimws()
+
+mapa_data <- left_join(mapa_data, covid19mx::estados_coords, by = "estado")
 
 mapa_data$casos_clase <- cut(mapa_data$casos, 
                              c(1,50,100,250,500,1000), include.lowest = T,
