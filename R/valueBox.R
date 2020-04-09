@@ -4,10 +4,10 @@ valueBox <- function(value, subtitle, icon, color) {
           div(class = "panel-heading", style = paste0("background-color:", color),
               div(class = "row",
                   div(class = "col-xs-3",
-                      icon(icon, "fa-3x")
+                      icon(icon, "fa-2x")
                   ),
                   div(class = ("col-xs-9 text-right"),
-                      div(style = ("font-size: 56px; font-weight: bold;"),
+                      div(style = ("font-size: 50px; font-weight: bold;"),
                           textOutput(value)
                       ),
                       div(subtitle)

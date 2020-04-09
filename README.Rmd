@@ -19,15 +19,20 @@ knitr::opts_chunk$set(
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of covid19mx is to provide a dashboard to visualise covid-19
-data for Mexico.
+Dashboard para dar seguimiento a la evolución de la epidemia de COVID-19 en México. 
 
-You can check the dashboard
-[here](https://davidmateos.shinyapps.io/covid19mx/).
+Puedes consultar el dashboard
+[aquí](https://davidmateos.shinyapps.io/covid19mx/).
 
-Updated: 07/04/2020
+La intención es otorgar fácil acceso a la información publicada por la Dirección General de Epidemiología.
+
+Última actualización: 08/04/2020
+
+Fuente: 
+
+- https://www.gob.mx/salud/acciones-y-programas/direccion-general-de-epidemiologia
+
 
 Please note that the ‘covid19mx’ project is released with a [Contributor
 Code of Conduct](CODE_OF_CONDUCT.md).
-
 By contributing to this project, you agree to abide by its terms.

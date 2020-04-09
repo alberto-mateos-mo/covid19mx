@@ -8,20 +8,18 @@ require(tidyverse)
 
 # download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
 
-url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/545732/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.07.pdf"
+url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/545940/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.08.pdf"
 
 download.file(url_positivos, "casos_positivos.pdf", mode = "wb")
 
 doc <- pdf_text("casos_positivos.pdf") %>% 
-  readr::read_lines(skip_empty_rows = TRUE, skip = 8) %>% 
+  readr::read_lines(skip_empty_rows = TRUE, skip = 4) %>% 
   trimws() %>% 
   strsplit(., "^\\d") %>% 
   unlist() %>% 
   .[nchar(.) != 0] %>% 
   trimws() %>% 
   stringr::str_squish()
-
-doc <- doc[-which(doc == "República")]
 
 doc <- head(doc, -2)
 

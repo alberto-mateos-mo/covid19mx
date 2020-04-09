@@ -16,7 +16,17 @@
 mod_data_vis_ui <- function(id){
   ns <- NS(id)
   tagList(
-    valueBox(value = ns("n_casos"), subtitle = "Casos confirmados", color = "white", icon = "search"),
+    fluidRow(
+      col_4(
+        valueBox(value = ns("n_casos"), subtitle = "Casos confirmados", color = "white", icon = "vial"),
+      ),
+      col_4(
+        valueBox(value = ns("n_estim"), subtitle = "Casos estimados por el modelo centinela.", color = "white", icon = "search")
+      ),
+      col_4(
+        valueBox(value = ns("corrf"), subtitle = "Factor de corrección", color = "white", icon = "calculator")
+      )
+    ),
     hr(),
     tabsetPanel(
       tabPanel("Comportamiento",
@@ -105,7 +115,15 @@ mod_data_vis_server <- function(input, output, session){
   })
   
   output$n_casos <- renderText({
-    nrow(casos_positivos)
+    scales::comma(nrow(casos_positivos))
+  })
+  
+  output$n_estim <- renderText({
+    scales::comma(26519)
+  })
+  
+  output$corrf <- renderText({
+    round(26519/nrow(casos_positivos), 2)
   })
   
 }
