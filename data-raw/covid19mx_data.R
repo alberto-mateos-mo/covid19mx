@@ -8,7 +8,7 @@ require(tidyverse)
 
 # download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
 
-url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/545940/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.08.pdf"
+url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/546093/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.09.pdf"
 
 download.file(url_positivos, "casos_positivos.pdf", mode = "wb")
 

@@ -78,7 +78,8 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::labs(x = "", y = "")+
                        ggplot2::ggtitle("Casos acumulados por fecha de inicio de síntomas")+
                        ggplot2::theme_minimal()+
-                       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)))
+                       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90))) %>% 
+      plotly::config(displayModeBar = TRUE, modeBarButtons = list(list("toImage")))
   })
   
   output$casos_freq <- plotly::renderPlotly({
@@ -89,7 +90,8 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::labs(x = "", y = "")+
                        ggplot2::ggtitle("Casos por fecha de inicio de síntomas")+
                        ggplot2::theme_minimal()+
-                       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)))
+                       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90))) %>% 
+      plotly::config(displayModeBar = TRUE, modeBarButtons = list(list("toImage")))
   })
   
   output$casos_gen <- plotly::renderPlotly({
@@ -103,7 +105,8 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::theme(axis.text = ggplot2::element_blank(), 
                              panel.grid = ggplot2::element_blank(), 
                              axis.ticks = ggplot2::element_blank(), 
-                             axis.line = ggplot2::element_blank()))
+                             axis.line = ggplot2::element_blank())) %>% 
+      plotly::config(displayModeBar = TRUE, modeBarButtons = list(list("toImage")))
   })
   
   output$casos_edad <- plotly::renderPlotly({
@@ -111,7 +114,8 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::geom_bar(ggplot2::aes(edad))+
                        ggplot2::labs(x = "Edad", y = "Casos")+
                        ggplot2::ggtitle("Casos por edad")+
-                       ggplot2::theme_minimal())
+                       ggplot2::theme_minimal()) %>% 
+      plotly::config(displayModeBar = TRUE, modeBarButtons = list(list("toImage")))
   })
   
   output$n_casos <- renderText({
@@ -119,11 +123,11 @@ mod_data_vis_server <- function(input, output, session){
   })
   
   output$n_estim <- renderText({
-    scales::comma(26519)
+    scales::comma(nrow(casos_positivos)*8.336687)
   })
   
   output$corrf <- renderText({
-    round(26519/nrow(casos_positivos), 2)
+    round(8.336687, 2)
   })
   
 }
