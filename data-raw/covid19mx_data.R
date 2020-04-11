@@ -8,12 +8,12 @@ require(tidyverse)
 
 # download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
 
-url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/546093/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.09.pdf"
+url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/546159/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.10.pdf"
 
 download.file(url_positivos, "casos_positivos.pdf", mode = "wb")
 
 doc <- pdf_text("casos_positivos.pdf") %>% 
-  readr::read_lines(skip_empty_rows = TRUE, skip = 4) %>% 
+  readr::read_lines(skip_empty_rows = TRUE, skip = 6) %>% 
   trimws() %>% 
   strsplit(., "^\\d") %>% 
   unlist() %>% 
@@ -84,8 +84,8 @@ mapa_data$estado <- as.character(mapa_data$estado) %>% trimws()
 mapa_data <- left_join(mapa_data, covid19mx::estados_coords, by = "estado")
 
 mapa_data$casos_clase <- cut(mapa_data$casos, 
-                             c(1,50,100,250,500,1000), include.lowest = T,
-                             labels = c('1-50', '51-100', '101-250', '251-500', '501-1000'))
+                             c(1,50,100,250,500,1000, 2000), include.lowest = T,
+                             labels = c('1-50', '51-100', '101-250', '251-500', '501-1000', '1001-2000'))
 
 
 usethis::use_data(casos_positivos, overwrite = TRUE)
