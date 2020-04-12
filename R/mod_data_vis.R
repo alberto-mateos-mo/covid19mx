@@ -23,13 +23,13 @@ mod_data_vis_ui <- function(id){
     ),
     fluidRow(
       col_4(align = "center",
-        valueBox(value = ns("n_casos"), subtitle = "Casos confirmados", color = "white", icon = "vial"),
+        valueBox(value = ns("n_casos"), subtitle = "Casos confirmados.", color = "white", icon = "vial"),
       ),
       col_4(align = "center",
         valueBox(value = ns("n_estim"), subtitle = "Casos estimados por el modelo centinela.", color = "white", icon = "search")
       ),
       col_4(align = "center",
-        valueBox(value = ns("corrf"), subtitle = "Factor de corrección", color = "white", icon = "calculator")
+        valueBox(value = ns("corrf"), subtitle = "Factor de corrección.", color = "white", icon = "calculator")
       )
     ),
     hr(),
@@ -96,7 +96,7 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::geom_point(ggplot2::aes(fecha, cum_freq), colour = "#6A7C8E")+
                        ggplot2::scale_x_date(breaks = "week")+
                        ggplot2::labs(x = "", y = "")+
-                       ggplot2::ggtitle("Casos acumulados por fecha de inicio de síntomas")+
+                       ggplot2::ggtitle("Casos acumulados por fecha de inicio de síntomas.")+
                        ggplot2::theme_minimal()+
                        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90),
                                       axis.text = ggplot2::element_text(colour = "#343A40"),
@@ -110,7 +110,7 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::geom_point(ggplot2::aes(fecha, freq), colour = "#6A7C8E")+
                        ggplot2::scale_x_date(breaks = "week")+
                        ggplot2::labs(x = "", y = "")+
-                       ggplot2::ggtitle("Casos por fecha de inicio de síntomas")+
+                       ggplot2::ggtitle("Casos por fecha de inicio de síntomas.")+
                        ggplot2::theme_minimal()+
                        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90), 
                                       axis.text = ggplot2::element_text(colour = "#343A40"),
@@ -121,15 +121,14 @@ mod_data_vis_server <- function(input, output, session){
   output$casos_gen <- plotly::renderPlotly({
     plotly::ggplotly(ggplot2::ggplot(casos_f(), ggplot2::aes(genero, fill = genero))+
                        ggplot2::geom_bar(position = "stack")+
-                       ggplot2::geom_text(ggplot2::aes(y = (..count..)+5,label = scales::percent((..count..)/sum(..count..))), 
+                       ggplot2::geom_text(ggplot2::aes(y = (..count..)-((..count..)/8),label = scales::percent((..count..)/sum(..count..))), 
                                           stat = "count")+
                        ggplot2::coord_flip()+
                        ggplot2::labs(x = "", y = "")+
-                       ggplot2::ggtitle("Casos por género")+
+                       ggplot2::ggtitle("Casos por género.")+
                        ggplot2::theme_minimal()+
                        ggplot2::scale_fill_manual("Género", values = c("#6A7C8E", "#C09086"))+
-                       ggplot2::theme(axis.text = ggplot2::element_blank(), 
-                                      panel.grid = ggplot2::element_blank(), 
+                       ggplot2::theme(axis.text.y = ggplot2::element_blank(),
                                       axis.ticks = ggplot2::element_blank(), 
                                       axis.line = ggplot2::element_blank(),
                                       title = ggplot2::element_text(colour = "#343A40"),
@@ -142,7 +141,7 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::geom_bar(ggplot2::aes(edad), fill = "#6A7C8E")+
                        ggplot2::scale_x_continuous(breaks = seq(from = 0, to = 100, by = 10))+
                        ggplot2::labs(x = "Edad", y = "Casos")+
-                       ggplot2::ggtitle("Casos por edad")+
+                       ggplot2::ggtitle("Casos por edad.")+
                        ggplot2::theme_minimal()+
                        ggplot2::theme(axis.text = ggplot2::element_text(colour = "#343A40"),
                                       title = ggplot2::element_text(colour = "#343A40"))) %>% 
