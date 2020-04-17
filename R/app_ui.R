@@ -12,6 +12,9 @@ app_ui <- function() {
       tabPanel("Mapa",
                mod_data_map_ui("data_map_ui_1")
                ),
+      tabPanel("Tablas",
+               mod_data_tables_ui("data_tables_ui_1")
+               ),
       tabPanel("Datos",
                mod_data_download_ui("data_download_ui_1")
                ),

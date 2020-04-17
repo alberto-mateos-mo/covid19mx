@@ -90,6 +90,8 @@ mapa_data$casos_clase <- cut(mapa_data$casos,
 
 usethis::use_data(casos_positivos, overwrite = TRUE)
 usethis::use_data(mapa_data, overwrite = TRUE)
+covid_data <- datoscovid19mx::covid_clean
+usethis::use_data(covid_data)
 
 # estados_coords <- clipr::read_clip_tbl(header = TRUE)
 # estados_coords$lat <- estados_coords$lat %>% str_replace(pattern = ",", replacement = ".") %>% as.numeric()

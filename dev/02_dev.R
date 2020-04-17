@@ -10,6 +10,7 @@
 golem::add_module( name = "data_vis" )
 golem::add_module( name = "data_download" )
 golem::add_module(name = "data_map")
+golem::add_module(name = "data_tables")
 
 ## 2.2 Add dependencies
 
