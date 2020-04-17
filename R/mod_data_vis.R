@@ -153,11 +153,11 @@ mod_data_vis_server <- function(input, output, session){
   })
   
   output$n_estim <- renderText({
-    scales::comma(nrow(casos_f())*8.336687)
+    scales::comma(nrow(casos_f())*8.885342226)
   })
   
   output$corrf <- renderText({
-    round(8.336687, 2)
+    round(8.885342226, 2)
   })
   
 }
