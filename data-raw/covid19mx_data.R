@@ -8,7 +8,7 @@ require(tidyverse)
 
 # download.file(url_sospechosos, 'casos_sospechosos.pdf', mode="wb")
 
-url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/546978/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.16.pdf"
+url_positivos <- "https://www.gob.mx/cms/uploads/attachment/file/547185/Tabla_casos_positivos_COVID-19_resultado_InDRE_2020.04.17.pdf"
 
 download.file(url_positivos, "casos_positivos.pdf", mode = "wb")
 
@@ -84,14 +84,14 @@ mapa_data$estado <- as.character(mapa_data$estado) %>% trimws()
 mapa_data <- left_join(mapa_data, covid19mx::estados_coords, by = "estado")
 
 mapa_data$casos_clase <- cut(mapa_data$casos, 
-                             c(1,50,100,250,500,1000, 2000), include.lowest = T,
-                             labels = c('1-50', '51-100', '101-250', '251-500', '501-1000', '1001-2000'))
+                             c(1,50,100,250,500,1000, 2000, 3000), include.lowest = T,
+                             labels = c('1-50', '51-100', '101-250', '251-500', '501-1000', '1001-2000', '2001-3000'))
 
 
 usethis::use_data(casos_positivos, overwrite = TRUE)
 usethis::use_data(mapa_data, overwrite = TRUE)
 covid_data <- datoscovid19mx::covid_clean
-usethis::use_data(covid_data)
+usethis::use_data(covid_data, overwrite = TRUE)
 
 # estados_coords <- clipr::read_clip_tbl(header = TRUE)
 # estados_coords$lat <- estados_coords$lat %>% str_replace(pattern = ",", replacement = ".") %>% as.numeric()
