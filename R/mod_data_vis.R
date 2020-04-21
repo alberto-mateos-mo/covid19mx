@@ -79,7 +79,7 @@ mod_data_vis_server <- function(input, output, session){
     names(casos_fecha) <- c("fecha", "freq")
     
     casos_fecha <- casos_fecha %>% 
-      dplyr::mutate(fecha = lubridate::dmy(fecha))
+      dplyr::mutate(fecha = lubridate::ymd(fecha))
     
     casos_fecha <- dplyr::arrange(casos_fecha, fecha)
     
