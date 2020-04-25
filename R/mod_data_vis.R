@@ -22,14 +22,17 @@ mod_data_vis_ui <- function(id){
         )
     ),
     fluidRow(
-      col_4(align = "center",
+      column(width = 3, align = "center",
         valueBox(value = ns("n_casos"), subtitle = "Casos confirmados.", color = "white", icon = "vial"),
       ),
-      col_4(align = "center",
+      column(width = 3, align = "center",
         valueBox(value = ns("n_estim"), subtitle = "Casos estimados por el modelo centinela.", color = "white", icon = "search")
       ),
-      col_4(align = "center",
+      column(width = 3, align = "center",
         valueBox(value = ns("corrf"), subtitle = "Factor de corrección.", color = "white", icon = "calculator")
+      ),
+      column(width = 3, align = "center",
+        valueBox(value = ns("n_decesos"), subtitle = "Número de decesos.", color = "white", icon = "square")
       )
     ),
     hr(),
@@ -158,6 +161,10 @@ mod_data_vis_server <- function(input, output, session){
   
   output$corrf <- renderText({
     round(8.885342226, 2)
+  })
+  
+  output$n_decesos <- renderText({
+    nrow(covid_data[covid_data$resultado == "Positivo SARS-CoV-2"&covid_data$fecha_def != "9999-99-99",])
   })
   
 }

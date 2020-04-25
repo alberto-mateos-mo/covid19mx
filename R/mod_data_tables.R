@@ -43,11 +43,23 @@ mod_data_tables_server <- function(input, output, session){
   ns <- session$ns
   
   covid_edo <- reactive({
-    covid_data %>% 
+    
+    a <- covid_data %>% 
       dplyr::filter(resultado == "Positivo SARS-CoV-2") %>% 
       dplyr::filter(entidad_res == input$estado) %>% 
       dplyr::group_by(municipio_res) %>% 
-      dplyr::summarise(casos = n())
+      dplyr::summarise(casos = n()) %>% 
+      dplyr::mutate(casos_estimados = round(casos*8.885342226))
+    
+    b <- covid_data %>% 
+      dplyr::filter(resultado == "Positivo SARS-CoV-2") %>% 
+      dplyr::filter(entidad_res == input$estado) %>% 
+      dplyr::filter(fecha_def != "9999-99-99") %>% 
+      dplyr::group_by(municipio_res) %>% 
+      dplyr::summarise(defunciones = n())
+    
+    dplyr::full_join(a,b)
+    
   })
   
   output$tabla <- DT::renderDT(server = FALSE, {
