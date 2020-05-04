@@ -18,7 +18,7 @@ mod_data_vis_ui <- function(id){
   tagList(
     fluidRow(
       column(width = 12, align = "center",
-        selectInput(ns("estado"), "Selecciona el estado:", choices = c("NACIONAL", levels(casos_positivos$estado)))
+        selectInput(ns("estado"), "Selecciona el estado:", choices = c("NACIONAL", levels(as.factor(casos_positivos$estado))))
         )
     ),
     fluidRow(
@@ -156,11 +156,11 @@ mod_data_vis_server <- function(input, output, session){
   })
   
   output$n_estim <- renderText({
-    scales::comma(nrow(casos_f())*8.885342226)
+    scales::comma(nrow(casos_f())*(104562/4524))
   })
   
   output$corrf <- renderText({
-    round(8.885342226, 2)
+    round((104562/4524), 2)
   })
   
   output$n_decesos <- renderText({

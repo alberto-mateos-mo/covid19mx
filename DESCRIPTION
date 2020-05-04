@@ -24,9 +24,12 @@ Imports:
     lubridate,
     leaflet,
     fastDummies,
-    scales
-RoxygenNote: 7.0.2
+    scales,
+    config
+RoxygenNote: 7.1.0
 URL: https://github.com/alberto-mateos-mo/covid19mx
 BugReports: https://github.com/alberto-mateos-mo/covid19mx/issues
 Suggests: 
     testthat
+Depends: 
+    R (>= 2.10)

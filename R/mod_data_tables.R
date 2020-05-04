@@ -49,7 +49,7 @@ mod_data_tables_server <- function(input, output, session){
       dplyr::filter(entidad_res == input$estado) %>% 
       dplyr::group_by(municipio_res) %>% 
       dplyr::summarise(casos = n()) %>% 
-      dplyr::mutate(casos_estimados = round(casos*8.885342226))
+      dplyr::mutate(casos_estimados = round(casos*(104562/4524)))
     
     b <- covid_data %>% 
       dplyr::filter(resultado == "Positivo SARS-CoV-2") %>% 
