@@ -164,7 +164,11 @@ mod_data_vis_server <- function(input, output, session){
   })
   
   output$n_decesos <- renderText({
-    scales::comma(nrow(covid_data[covid_data$resultado == "Positivo SARS-CoV-2"&covid_data$fecha_def != "9999-99-99",]))
+    if(input$estado == "NACIONAL"){
+      scales::comma(nrow(covid_data[covid_data$resultado == "Positivo SARS-CoV-2"&covid_data$fecha_def != "9999-99-99",]))
+    }else{
+      scales::comma(nrow(covid_data[covid_data$resultado == "Positivo SARS-CoV-2"&covid_data$fecha_def != "9999-99-99"&covid_data$entidad_res == input$estado,])) 
+    }
   })
   
 }
