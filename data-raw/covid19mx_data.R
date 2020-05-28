@@ -4,6 +4,8 @@
 require(tidyverse)
 require(datoscovid19mx)
 
+positivos_anteriores <- nrow(covid19mx::casos_positivos)
+
 positivos <- covid_clean %>% 
   filter(resultado == "Positivo SARS-CoV-2")
 
@@ -28,6 +30,8 @@ mapa_data$casos_clase <- cut(mapa_data$casos,
                              labels = c('1-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '5001-6000', '6001-7000', 
                                         '7001-8000', '8001-9000', '+9000'))
 
+
+incremento <- nrow(casos_positivos)-positivos_anteriores
 
 usethis::use_data(casos_positivos, overwrite = TRUE)
 usethis::use_data(mapa_data, overwrite = TRUE)
