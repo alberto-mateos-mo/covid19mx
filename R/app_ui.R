@@ -19,7 +19,7 @@ app_ui <- function() {
                mod_data_download_ui("data_download_ui_1")
                ),
       inverse = TRUE,
-      footer = "Fecha de actualización: 03/06/2020"
+      footer = "Fecha de actualización: 05/06/2020"
     )
   )
 }
