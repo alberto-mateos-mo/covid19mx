@@ -15,9 +15,9 @@ app_ui <- function() {
       tabPanel("Tablas",
                mod_data_tables_ui("data_tables_ui_1")
                ),
-      tabPanel("Datos",
-               mod_data_download_ui("data_download_ui_1")
-               ),
+      # tabPanel("Datos",
+               # mod_data_download_ui("data_download_ui_1")
+               # ),
       inverse = TRUE,
       footer = "Fecha de actualización: 15/06/2020"
     )
