@@ -17,7 +17,7 @@ aquí](https://davidmateos.shinyapps.io/covid19mx/) y la versión para
 La intención es otorgar fácil acceso a la información publicada por la
 Dirección General de Epidemiología.
 
-Última actualización: 17/06/2020
+Última actualización: 2020-06-18 22:44:40
 
 Fuente:
 
