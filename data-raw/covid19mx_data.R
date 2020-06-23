@@ -35,7 +35,7 @@ incremento <- nrow(casos_positivos)-positivos_anteriores
 
 usethis::use_data(casos_positivos, overwrite = TRUE)
 usethis::use_data(mapa_data, overwrite = TRUE)
-covid_data <- datoscovid19mx::covid_clean
+covid_data <- datoscovid19mx::covid_clean %>% dplyr::filter(resultado == "Positivo SARS-CoV-2")
 usethis::use_data(covid_data, overwrite = TRUE)
 
 # estados_coords <- clipr::read_clip_tbl(header = TRUE)
