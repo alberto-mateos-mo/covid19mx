@@ -108,9 +108,10 @@ mod_data_vis_server <- function(input, output, session){
   })
   
   output$casos_freq <- plotly::renderPlotly({
-    plotly::ggplotly(ggplot2::ggplot(casos_fecha())+
+    plotly::ggplotly(ggplot2::ggplot(head(casos_fecha(), -13))+
                        ggplot2::geom_line(ggplot2::aes(fecha, freq), colour = "#6A7C8E")+
                        ggplot2::geom_point(ggplot2::aes(fecha, freq), colour = "#6A7C8E")+
+                       ggplot2::geom_smooth(ggplot2::aes(fecha, freq), se = FALSE)+
                        ggplot2::scale_x_date(breaks = "week")+
                        ggplot2::labs(x = "", y = "")+
                        ggplot2::ggtitle("Casos por fecha de inicio de síntomas.")+
