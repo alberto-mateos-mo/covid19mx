@@ -114,7 +114,8 @@ mod_data_vis_server <- function(input, output, session){
                        ggplot2::geom_smooth(ggplot2::aes(fecha, freq), se = FALSE)+
                        ggplot2::scale_x_date(breaks = "week")+
                        ggplot2::labs(x = "", y = "")+
-                       ggplot2::ggtitle("Casos por fecha de inicio de síntomas.")+
+                       ggplot2::ggtitle("Casos por fecha de inicio de síntomas.", 
+                                        subtitle = "No se consideran las últimas dos semanas.")+
                        ggplot2::theme_minimal()+
                        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90), 
                                       axis.text = ggplot2::element_text(colour = "#343A40"),
