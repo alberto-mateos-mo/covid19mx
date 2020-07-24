@@ -48,7 +48,7 @@ mod_data_tables_server <- function(input, output, session){
       dplyr::filter(resultado == "Positivo SARS-CoV-2") %>% 
       dplyr::filter(entidad_res == input$estado) %>% 
       dplyr::group_by(municipio_res) %>% 
-      dplyr::summarise(casos = n()) %>% 
+      dplyr::summarise(casos = dplyr::n()) %>% 
       dplyr::mutate(casos_estimados = round(casos*(104562/4524)))
     
     b <- covid_data %>% 
@@ -56,7 +56,7 @@ mod_data_tables_server <- function(input, output, session){
       dplyr::filter(entidad_res == input$estado) %>% 
       dplyr::filter(fecha_def != "9999-99-99") %>% 
       dplyr::group_by(municipio_res) %>% 
-      dplyr::summarise(defunciones = n())
+      dplyr::summarise(defunciones = dplyr::n())
     
     dplyr::full_join(a,b)
     
