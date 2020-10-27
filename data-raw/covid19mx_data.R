@@ -96,7 +96,7 @@ mapa_data$estado <- as.character(mapa_data$estado) %>% trimws()
 mapa_data <- left_join(mapa_data, covid19mx::estados_coords, by = "estado")
 
 mapa_data$casos_clase <- cut(mapa_data$casos, 
-                             c(1, 5000, 10000, 20000, 30000, 40000, 50000, 75000, 100000, 150000), include.lowest = T,
+                             c(1, 5000, 10000, 20000, 30000, 40000, 50000, 75000, 100000, 200000), include.lowest = T,
                              labels = c('1-5000', '5001-10000', '10001-20000', '20001-30000', '30001-40000', '40001-50000', '50001-75000', 
                                         '75001-100000', '+100000'))
 
